@@ -1,0 +1,1 @@
+-e git+git@github.com:natgeo/django-genericadmin.git@release-1.0.1#egg=django-genericadmin
