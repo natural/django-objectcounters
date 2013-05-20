@@ -1,0 +1,7 @@
+{% load counter_tags %}
+<html>
+<body>
+  {% counter_for_object "visits" site as visits %}
+  Visits: {{ visits }}
+</body>
+</html>

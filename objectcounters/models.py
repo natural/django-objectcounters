@@ -27,8 +27,9 @@ class CounterManager(models.Manager):
         counter, created = self.get_or_create(name=name,
             content_type=content_type,
             object_id=instance.id)
-        counter.value = value
-        counter.save()
+        if created:
+            counter.value = value
+            counter.save()
         return (counter, created)
 
 

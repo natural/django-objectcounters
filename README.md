@@ -16,11 +16,11 @@ Instead of this:
 You can do this:
 
     capt = Person(name='Jean-Luc Picard')
-    Counters.create_for_object('friends_total', capt, 1014)
+    Counter.objects.create_for_object('friends_total', capt, 1014)
 
 And:
 
-    last = Counters.get_for_object('friends_last_month', capt)
+    last = Counter.objects.get_for_object('friends_last_month', capt)
     last.value += -3 # lost the away team.
     last.save()
 
@@ -46,7 +46,50 @@ Sync your database:
 
   $ ./manage.py syncdb --migrate
 
+To run the sample app, make sure you've got generic admin installed globally
+(ugh), or better yet, create a new virtual env and install it there with the
+sample.
 
-Usage
------
 
+Python Usage
+-------------
+
+The `Counter` model is a regular Django model, so you can create, read, update
+and delete records in the usual way.  Additionally, the model provides a manager
+with a few more methods:
+
+1.  `Counter.get_for_object(name, instance, **kwargs)`
+
+Use this method to get an existing counter for an object.  Pass in the name of
+the counter, like 'total-holodeck-hours', and a model instance.  Keyword
+arguments are passed thru to the `get()` call.
+
+2.  `Counter.get_value_for_object(self, name, instance, default=0, **kwargs)`
+
+Use this method when you need just the value of a counter and not the counter
+record.  Keyword arguments are passed thru to the `get()` call.
+
+3.  `Counter.create_for_object(self, name, instance, value=0)`
+
+This is just like Django's `get_or_create` and returns the same kind of
+two-tuple.  Use this when you need to get a counter and create it if necessary
+in one step.
+
+
+
+Template Usage
+--------------
+
+You can also enable counters inside of templates pretty easily.
+
+
+1.  In your templates, load the tag:
+
+  {% load counter_tags %}
+
+2.  Then you can render values like this:
+
+  <span>
+    {% counter_for_object "monthly_shack_visits" user as visits %}
+    I went to Shake Shack {{ visits }} times this month.
+  </span>
