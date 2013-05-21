@@ -15,7 +15,7 @@ Instead of this:
 
 You can do this:
 
-    capt = Person(name='Jean-Luc Picard')
+    capt = Person.objects.get(name='Jean-Luc Picard')
     Counter.objects.create_for_object('friends_total', capt, 1014)
 
 And:
@@ -44,7 +44,7 @@ Add it to your `INSTALLED_APPS`:
 
 Sync your database:
 
-  $ ./manage.py syncdb --migrate
+    $ ./manage.py syncdb --migrate
 
 To run the sample app, make sure you've got generic admin installed globally
 (ugh), or better yet, create a new virtual env and install it there with the
@@ -82,14 +82,13 @@ Template Usage
 
 You can also enable counters inside of templates pretty easily.
 
+In your templates, load the tag:
 
-1.  In your templates, load the tag:
+    `{% load counter_tags %}`
 
-  {% load counter_tags %}
+Then you can render values like this:
 
-2.  Then you can render values like this:
-
-  <span>
-    {% counter_for_object "monthly_shack_visits" user as visits %}
-    I went to Shake Shack {{ visits }} times this month.
-  </span>
+    <span>
+      {% counter_for_object "monthly_shack_visits" user as visits %}
+      I  went to Shake Shack {{ visits }} times this month.`
+    </span>
