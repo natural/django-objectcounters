@@ -16,7 +16,7 @@ setup(
     license='BSD License',
     description='Associate counters with Django model records.',
     long_description=README,
-    url='',
+    url='https://github.com/natural/django-objectcounters',
     author='Troy Melhase',
     author_email='troy@troy.io',
     classifiers=[
