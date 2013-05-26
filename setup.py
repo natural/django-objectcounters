@@ -11,7 +11,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 setup(
     name='django-objectcounters',
     version='0.1',
-    packages=['objectcounters'],
+    packages=['objectcounters', 'objectcounters.templatetags'],
     include_package_data=True,
     license='BSD License',
     description='Associate counters with Django model records.',
