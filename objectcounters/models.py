@@ -32,6 +32,14 @@ class CounterManager(models.Manager):
             counter.save()
         return (counter, created)
 
+    def increase_for_object(self, name, instance, value=0, **kwargs):
+        """Given a name and an object, it increases it's counter by value"""
+        counter = self.create_for_object(name, instance, **kwargs)[0]
+        if counter:
+            print "Adding %s" % value
+            counter.value += value
+            counter.save()
+
 
 class Counter(models.Model):
     """Models counters as a simple string and integer pair."""
